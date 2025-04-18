@@ -1,0 +1,248 @@
+﻿<Page x:Class="Lopushok.Pages.ProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Lopushok.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="840" d:DesignWidth="1450"
+      Title="ProductPage">
+
+    <Grid Background="White" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox Name="SearchTbx" 
+    Background="Transparent" 
+    HorizontalAlignment="Left" 
+    HorizontalContentAlignment="Center" 
+    VerticalContentAlignment="Center" 
+    Height="40" 
+    TextWrapping="Wrap" 
+    VerticalAlignment="Top" 
+    MaxLength="10"
+    Width="422" 
+    Text="{Binding InputText, Mode=TwoWay}" 
+    Foreground="Black" Grid.ColumnSpan="4" Margin="180,80,0,0" Grid.RowSpan="2" TextChanged="SearchTbx_TextChanged" 
+        
+        />
+
+        <!-- TextBlock для текста-подсказки -->
+        <TextBlock Name="PlaceholderTextBlock" 
+      Text="Введите для поиска" 
+      Foreground="Black"  
+      FontStyle="Italic" 
+      HorizontalAlignment="Left" 
+      VerticalAlignment="Top" 
+      Margin="9,8,0,0" 
+      IsHitTestVisible="False" Grid.Column="1"
+          FontFamily="SearchTbx"
+          FontSize="15" Grid.Row="1"
+          >
+
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <!-- Триггер для скрытия подсказки, если TextBox не пуст -->
+                        <DataTrigger Binding="{Binding Text, ElementName=SearchTbx}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text, ElementName=SearchTbx}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <!-- Триггер для скрытия подсказки, если TextBox в фокусе -->
+                        <DataTrigger Binding="{Binding IsFocused, ElementName=SearchTbx}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <!-- Триггер для показа подсказки, если TextBox теряет фокус и пуст -->
+                        <DataTrigger Binding="{Binding IsFocused, ElementName=SearchTbx}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <ComboBox x:Name="SortCb"
+       FontFamily="Gabriola"
+       FontSize="25"
+       Foreground="Black"
+       SelectionChanged="SortCB_SelectionChanged"
+       IsEditable="True"
+       IsReadOnly="True"
+       Text="Сортировка" 
+       Grid.Column="3" 
+       Grid.ColumnSpan="2" 
+       Grid.RowSpan="2" Margin="106,73,75,45">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="HorizontalContentAlignment" 
+                 Value="Center"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <ComboBoxItem>Нет</ComboBoxItem>
+            <ComboBoxItem >По возрастанию</ComboBoxItem>
+            <ComboBoxItem >По убыванию</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="FilterCb"
+       FontFamily="Gabriola"
+       FontSize="25"
+       Foreground="Black"
+       ItemsSource="{Binding typees}"
+       SelectionChanged="FilterCbClik"
+       Grid.Column="5"
+       IsEditable="True"
+       IsReadOnly="True"
+       Text="Фильтрация"
+       DisplayMemberPath="NameTypeProduct" Grid.ColumnSpan="2" Margin="51,72,129,47" Grid.RowSpan="2">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
+        <ListView x:Name="ProductLV" 
+          FontSize="40" 
+          VerticalAlignment="Center"
+          Grid.Column="0" 
+          Grid.ColumnSpan="8" 
+          Grid.Row="1" 
+          Grid.RowSpan="9"
+          d:ItemsSource="{Binding products}"
+          Width="1100" 
+          Height="600" SelectionChanged="ProductLV_SelectionChanged_1"  >
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="100" Columns="1"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="3" 
+            BorderBrush="#00CC76" 
+            Padding="1" Width="1059">
+                        <StackPanel>
+                            <StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <StackPanel Orientation="Horizontal" 
+                                Width="190" 
+                                Margin="15">
+                                        <Image Source="{Binding PhotoBinary}" 
+                               Width="190"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical" 
+                                       Width="630" 
+                                       Margin="0 0 0 0">
+                                        <StackPanel Orientation="Horizontal"
+                                           Width="740" 
+                                           Height="Auto" 
+                                           Margin="0 0 0 10">
+
+                                            <TextBlock FontSize="26" 
+                                       Width="Auto"
+                                       Height="Auto"
+                                       FontFamily="Gabriola" 
+                                       Text="{Binding TypeProduct.NameTypeProduct}" 
+                                       Margin="10 0 0 0"
+                                       />
+                                            <TextBlock FontSize="26" 
+                                           Width="Auto"
+                                           Height="Auto"
+                                           FontFamily="Gabriola" 
+                                           Text="|" 
+                                           Margin="10 0 0 0"
+                                           />
+                                            <TextBlock FontSize="26" 
+                                               Width="Auto"
+                                               Height="Auto"
+                                               FontFamily="Gabriola" 
+                                               Text="{Binding NameProduct}" 
+                                               Margin="10 0 0 0"
+                                               />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                    Width="632" 
+                                    Height="Auto" Margin="0 0 0 10">
+
+                                            <TextBlock FontSize="26" 
+                                       Width="Auto"
+                                       Height="Auto"
+                                       FontFamily="Gabriola" 
+                                       Text="{Binding ArticleNumber}" 
+                                       Margin="10 0 0 0"
+                                         
+                                       />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                            Width="630" 
+                                            Height="150" Margin="0 0 0 10">
+                                            <TextBlock Text="{Binding TextMaterialList}" FontSize="21" 
+                                              FontFamily="Gabriola" 
+                                              TextWrapping="WrapWithOverflow"
+                                              Foreground="Black"
+                                              Height="130"
+                                              />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="удалить" 
+                                           FontFamily="Tw Cen MT" 
+                                           x:Name="DeleteBtn"
+                                           Width="150" 
+                                           Height="50" 
+                                           Background="#00CC76"
+                                           Margin="20 20 0 20" 
+                                           FontSize="25" Click="DeleteBtn_Click_1"
+                                          />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="AUTO" Width="auto" >
+                                        <TextBlock Text="{Binding TotalCost}"
+                                          FontSize="21"
+                                          FontFamily="Gabriola"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel Grid.Column="5" Grid.ColumnSpan="2" Margin="143,8,11,45" Grid.Row="9"/>
+        <StackPanel x:Name="NavSp"
+   Orientation="Horizontal"
+   HorizontalAlignment="Right" Grid.Column="5" Margin="0,4,1,34" Grid.Row="9" Width="196" Grid.ColumnSpan="2"/>
+        <Button x:Name="AddBtn"
+Content="Добавить"
+FontFamily="Tw Cen MT"
+FontWeight="Medium"
+FontSize="25"
+Background="#00CC76"
+BorderBrush="Transparent" 
+       Grid.Column="7" 
+       Margin="1,18,6,20" Click="AddBtn_Click"/>
+
+    </Grid>
+</Page>

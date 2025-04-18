@@ -1,0 +1,74 @@
+﻿<Page x:Class="Lopushok.Pages.EditProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Lopushok.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="840" d:DesignWidth="1450"
+      Title="EditProductPage">
+
+    <Grid Background="White" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Артикул -->
+        <TextBlock Text="Артикул:" Grid.Row="0" Grid.Column="0" Margin="5" FontFamily="Gabriola" />
+        <TextBox x:Name="ArticleTb" Grid.Row="0" Grid.Column="1" Margin="5" FontFamily="Gabriola" />
+
+        <!-- Наименование -->
+        <TextBlock Text="Наименование:" Grid.Row="1" Grid.Column="0" Margin="5" FontFamily="Gabriola" />
+        <TextBox x:Name="NameTb" Grid.Row="1" Grid.Column="1" Margin="5" FontFamily="Gabriola" />
+
+        <!-- Тип продукта (выпадающий список) -->
+        <TextBlock Text="Тип продукта:" Grid.Row="2" Grid.Column="0" Margin="5" FontFamily="Gabriola" />
+        <ComboBox x:Name="TypeCb" Grid.Row="2" Grid.Column="1" Margin="5" FontFamily="Gabriola" />
+
+        <!-- Изображение -->
+        <TextBlock Text="Изображение:" Grid.Row="3" Grid.Column="0" Margin="5" FontFamily="Gabriola" />
+        <Image x:Name="TestImg" Grid.Row="3" Grid.Column="1" Width="100" Height="100" Margin="5" />
+        <Button x:Name="ChangeImageBtn" Grid.Row="3" Grid.Column="1" Content="Изменить" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Width="80" Click="ChangeImageBtn_Click" FontFamily="Gabriola" />
+
+        <!-- Минимальная стоимость для агента -->
+        <TextBlock Text="Итоговая стоимость:" Grid.Row="6" Grid.Column="0" Margin="5" FontFamily="Gabriola" />
+        <TextBox x:Name="TotalCostTbx" Grid.Row="6" Grid.Column="1" Margin="5,5,556,5" IsReadOnly="True" FontFamily="Gabriola" />
+        <Button x:Name="CalCostBtn" Grid.Column="1" Grid.Row="6" Content="Рассчитать" Height="20" Width="150" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Click="CalCostBtn_Click" FontFamily="Gabriola" />
+
+        <!-- Список материалов -->
+        <TextBlock Text="Материалы:" Grid.Row="8" Grid.Column="0" Margin="5" FontFamily="Gabriola" />
+        <DataGrid x:Name="MaterialsGrid" Grid.Row="8" Grid.Column="1" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" FontFamily="Gabriola">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Материал" Binding="{Binding Materials.NameMaterials}" IsReadOnly="True" FontFamily="Gabriola" />
+                <DataGridTextColumn Header="Количество" Binding="{Binding NumberMaterials}" FontFamily="Gabriola" />
+                <DataGridTemplateColumn Header="Действия" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="Delete" Content="Удалить" Click="Delete_Click" FontFamily="Gabriola" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопки управления -->
+        <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button x:Name="SaveBtn" Content="Сохранить" Margin="5" Width="80" Click="SaveBtn_Click" FontFamily="Gabriola" />
+            <Button x:Name="AddBtn" Content="Добавить материал" Margin="5" Width="120" Click="AddBtn_Click" FontFamily="Gabriola" />
+            <Button x:Name="CancelBtn" Content="Отмена" Margin="5" Width="80" Click="CancelBtn_Click" FontFamily="Gabriola" />
+        </StackPanel>
+    </Grid>
+</Page>

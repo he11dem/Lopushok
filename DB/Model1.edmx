@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище lopushModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="IdMaterials" />
+          </Key>
+          <Property Name="IdMaterials" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameMaterials" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdTypeMaterials" Type="int" />
+          <Property Name="NumberPackage" Type="int" />
+          <Property Name="IdUnitMeasurement" Type="int" />
+          <Property Name="NumberWarehouse" Type="int" />
+          <Property Name="MinimumBalance" Type="int" />
+          <Property Name="Cost" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="IdProduct" />
+          </Key>
+          <Property Name="IdProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameProduct" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArticleNumber" Type="int" />
+          <Property Name="MinimumСost" Type="int" />
+          <Property Name="PhotoPath" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdTypeProduct" Type="int" />
+          <Property Name="NumberPeople" Type="int" />
+          <Property Name="NumberWorkshop" Type="int" />
+          <Property Name="PhotoBinary" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Product_Materials">
+          <Key>
+            <PropertyRef Name="IdProductMaterials" />
+          </Key>
+          <Property Name="IdProductMaterials" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" />
+          <Property Name="IdMaterials" Type="int" />
+          <Property Name="NumberMaterials" Type="int" />
+        </EntityType>
+        <EntityType Name="TypeMaterials">
+          <Key>
+            <PropertyRef Name="IdTypeMaterials" />
+          </Key>
+          <Property Name="IdTypeMaterials" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameTypeaterials" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TypeProduct">
+          <Key>
+            <PropertyRef Name="IdTypeProduct" />
+          </Key>
+          <Property Name="IdTypeProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameTypeProduct" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UnitMeasurement">
+          <Key>
+            <PropertyRef Name="IdUnitMeasurement" />
+          </Key>
+          <Property Name="IdUnitMeasurement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameUnitMeasurement" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Materials_TypeMaterials">
+          <End Role="TypeMaterials" Type="Self.TypeMaterials" Multiplicity="0..1" />
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeMaterials">
+              <PropertyRef Name="IdTypeMaterials" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="IdTypeMaterials" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materials_UnitMeasurement">
+          <End Role="UnitMeasurement" Type="Self.UnitMeasurement" Multiplicity="0..1" />
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitMeasurement">
+              <PropertyRef Name="IdUnitMeasurement" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="IdUnitMeasurement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Materials_Materials">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="0..1" />
+          <End Role="Product_Materials" Type="Self.Product_Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="IdMaterials" />
+            </Principal>
+            <Dependent Role="Product_Materials">
+              <PropertyRef Name="IdMaterials" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Materials_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Product_Materials" Type="Self.Product_Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="IdProduct" />
+            </Principal>
+            <Dependent Role="Product_Materials">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_TypeProduct">
+          <End Role="TypeProduct" Type="Self.TypeProduct" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProduct">
+              <PropertyRef Name="IdTypeProduct" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdTypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище lopushModelContainer">
+          <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Materials" EntityType="Self.Product_Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeMaterials" EntityType="Self.TypeMaterials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeProduct" EntityType="Self.TypeProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnitMeasurement" EntityType="Self.UnitMeasurement" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Materials_TypeMaterials" Association="Self.FK_Materials_TypeMaterials">
+            <End Role="TypeMaterials" EntitySet="TypeMaterials" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materials_UnitMeasurement" Association="Self.FK_Materials_UnitMeasurement">
+            <End Role="UnitMeasurement" EntitySet="UnitMeasurement" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Materials_Materials" Association="Self.FK_Product_Materials_Materials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="Product_Materials" EntitySet="Product_Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Materials_Product" Association="Self.FK_Product_Materials_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Product_Materials" EntitySet="Product_Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_TypeProduct" Association="Self.FK_Product_TypeProduct">
+            <End Role="TypeProduct" EntitySet="TypeProduct" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="lopushModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="IdMaterials" />
+          </Key>
+          <Property Name="IdMaterials" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameMaterials" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdTypeMaterials" Type="Int32" />
+          <Property Name="NumberPackage" Type="Int32" />
+          <Property Name="IdUnitMeasurement" Type="Int32" />
+          <Property Name="NumberWarehouse" Type="Int32" />
+          <Property Name="MinimumBalance" Type="Int32" />
+          <Property Name="Cost" Type="Int32" />
+          <NavigationProperty Name="TypeMaterials" Relationship="Self.FK_Materials_TypeMaterials" FromRole="Materials" ToRole="TypeMaterials" />
+          <NavigationProperty Name="UnitMeasurement" Relationship="Self.FK_Materials_UnitMeasurement" FromRole="Materials" ToRole="UnitMeasurement" />
+          <NavigationProperty Name="Product_Materials" Relationship="Self.FK_Product_Materials_Materials" FromRole="Materials" ToRole="Product_Materials" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="IdProduct" />
+          </Key>
+          <Property Name="IdProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleNumber" Type="Int32" />
+          <Property Name="MinimumСost" Type="Int32" />
+          <Property Name="PhotoPath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdTypeProduct" Type="Int32" />
+          <Property Name="NumberPeople" Type="Int32" />
+          <Property Name="NumberWorkshop" Type="Int32" />
+          <Property Name="PhotoBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Product_Materials" Relationship="Self.FK_Product_Materials_Product" FromRole="Product" ToRole="Product_Materials" />
+          <NavigationProperty Name="TypeProduct" Relationship="Self.FK_Product_TypeProduct" FromRole="Product" ToRole="TypeProduct" />
+        </EntityType>
+        <EntityType Name="Product_Materials">
+          <Key>
+            <PropertyRef Name="IdProductMaterials" />
+          </Key>
+          <Property Name="IdProductMaterials" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduct" Type="Int32" />
+          <Property Name="IdMaterials" Type="Int32" />
+          <Property Name="NumberMaterials" Type="Int32" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Product_Materials_Materials" FromRole="Product_Materials" ToRole="Materials" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Materials_Product" FromRole="Product_Materials" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="TypeMaterials">
+          <Key>
+            <PropertyRef Name="IdTypeMaterials" />
+          </Key>
+          <Property Name="IdTypeMaterials" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameTypeaterials" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Materials_TypeMaterials" FromRole="TypeMaterials" ToRole="Materials" />
+        </EntityType>
+        <EntityType Name="TypeProduct">
+          <Key>
+            <PropertyRef Name="IdTypeProduct" />
+          </Key>
+          <Property Name="IdTypeProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameTypeProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_TypeProduct" FromRole="TypeProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="UnitMeasurement">
+          <Key>
+            <PropertyRef Name="IdUnitMeasurement" />
+          </Key>
+          <Property Name="IdUnitMeasurement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameUnitMeasurement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Materials_UnitMeasurement" FromRole="UnitMeasurement" ToRole="Materials" />
+        </EntityType>
+        <Association Name="FK_Materials_TypeMaterials">
+          <End Role="TypeMaterials" Type="Self.TypeMaterials" Multiplicity="0..1" />
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeMaterials">
+              <PropertyRef Name="IdTypeMaterials" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="IdTypeMaterials" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materials_UnitMeasurement">
+          <End Role="UnitMeasurement" Type="Self.UnitMeasurement" Multiplicity="0..1" />
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitMeasurement">
+              <PropertyRef Name="IdUnitMeasurement" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="IdUnitMeasurement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Materials_Materials">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="0..1" />
+          <End Role="Product_Materials" Type="Self.Product_Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="IdMaterials" />
+            </Principal>
+            <Dependent Role="Product_Materials">
+              <PropertyRef Name="IdMaterials" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Materials_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Product_Materials" Type="Self.Product_Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="IdProduct" />
+            </Principal>
+            <Dependent Role="Product_Materials">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_TypeProduct">
+          <End Role="TypeProduct" Type="Self.TypeProduct" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProduct">
+              <PropertyRef Name="IdTypeProduct" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdTypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="lopushEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Materials" EntityType="Self.Materials" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Product_Materials" EntityType="Self.Product_Materials" />
+          <EntitySet Name="TypeMaterials" EntityType="Self.TypeMaterials" />
+          <EntitySet Name="TypeProduct" EntityType="Self.TypeProduct" />
+          <EntitySet Name="UnitMeasurement" EntityType="Self.UnitMeasurement" />
+          <AssociationSet Name="FK_Materials_TypeMaterials" Association="Self.FK_Materials_TypeMaterials">
+            <End Role="TypeMaterials" EntitySet="TypeMaterials" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materials_UnitMeasurement" Association="Self.FK_Materials_UnitMeasurement">
+            <End Role="UnitMeasurement" EntitySet="UnitMeasurement" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Materials_Materials" Association="Self.FK_Product_Materials_Materials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="Product_Materials" EntitySet="Product_Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Materials_Product" Association="Self.FK_Product_Materials_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Product_Materials" EntitySet="Product_Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_TypeProduct" Association="Self.FK_Product_TypeProduct">
+            <End Role="TypeProduct" EntitySet="TypeProduct" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище lopushModelContainer" CdmEntityContainer="lopushEntities">
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="lopushModel.Materials">
+              <MappingFragment StoreEntitySet="Materials">
+                <ScalarProperty Name="IdMaterials" ColumnName="IdMaterials" />
+                <ScalarProperty Name="NameMaterials" ColumnName="NameMaterials" />
+                <ScalarProperty Name="IdTypeMaterials" ColumnName="IdTypeMaterials" />
+                <ScalarProperty Name="NumberPackage" ColumnName="NumberPackage" />
+                <ScalarProperty Name="IdUnitMeasurement" ColumnName="IdUnitMeasurement" />
+                <ScalarProperty Name="NumberWarehouse" ColumnName="NumberWarehouse" />
+                <ScalarProperty Name="MinimumBalance" ColumnName="MinimumBalance" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="lopushModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+                <ScalarProperty Name="ArticleNumber" ColumnName="ArticleNumber" />
+                <ScalarProperty Name="MinimumСost" ColumnName="MinimumСost" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="IdTypeProduct" ColumnName="IdTypeProduct" />
+                <ScalarProperty Name="NumberPeople" ColumnName="NumberPeople" />
+                <ScalarProperty Name="NumberWorkshop" ColumnName="NumberWorkshop" />
+                <ScalarProperty Name="PhotoBinary" ColumnName="PhotoBinary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Materials">
+            <EntityTypeMapping TypeName="lopushModel.Product_Materials">
+              <MappingFragment StoreEntitySet="Product_Materials">
+                <ScalarProperty Name="IdProductMaterials" ColumnName="IdProductMaterials" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdMaterials" ColumnName="IdMaterials" />
+                <ScalarProperty Name="NumberMaterials" ColumnName="NumberMaterials" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeMaterials">
+            <EntityTypeMapping TypeName="lopushModel.TypeMaterials">
+              <MappingFragment StoreEntitySet="TypeMaterials">
+                <ScalarProperty Name="IdTypeMaterials" ColumnName="IdTypeMaterials" />
+                <ScalarProperty Name="NameTypeaterials" ColumnName="NameTypeaterials" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeProduct">
+            <EntityTypeMapping TypeName="lopushModel.TypeProduct">
+              <MappingFragment StoreEntitySet="TypeProduct">
+                <ScalarProperty Name="IdTypeProduct" ColumnName="IdTypeProduct" />
+                <ScalarProperty Name="NameTypeProduct" ColumnName="NameTypeProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnitMeasurement">
+            <EntityTypeMapping TypeName="lopushModel.UnitMeasurement">
+              <MappingFragment StoreEntitySet="UnitMeasurement">
+                <ScalarProperty Name="IdUnitMeasurement" ColumnName="IdUnitMeasurement" />
+                <ScalarProperty Name="NameUnitMeasurement" ColumnName="NameUnitMeasurement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
