@@ -68,9 +68,6 @@ namespace Lopushok.Pages
 
             // Обновляем текстовое поле
             TotalCostTbx.Text = $"{totalCost:N2} руб.";
-
-
-
         }
 
 

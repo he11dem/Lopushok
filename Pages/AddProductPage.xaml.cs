@@ -40,7 +40,6 @@ namespace Lopushok.Pages
         }
         private void LoadProductData()
         {
-            // Очищаем поля для нового продукта
             NameTb.Text = string.Empty;
             ArticleTb.Text = string.Empty;
             TestImg.Source = null;
@@ -77,7 +76,7 @@ namespace Lopushok.Pages
             else
             {
                 var selectedProductType = (TypeProduct)TypeCb.SelectedItem;
-                // Создаем новый продукт
+
                 Product newProduct = new Product
                 {
                     NameProduct = NameTb.Text,

@@ -122,15 +122,15 @@
             </ComboBox.ItemContainerStyle>
         </ComboBox>
         <ListView x:Name="ProductLV" 
-          FontSize="40" 
-          VerticalAlignment="Center"
-          Grid.Column="0" 
-          Grid.ColumnSpan="8" 
-          Grid.Row="1" 
-          Grid.RowSpan="9"
-          d:ItemsSource="{Binding products}"
-          Width="1100" 
-          Height="600" SelectionChanged="ProductLV_SelectionChanged_1"  >
+                  FontSize="40" 
+                  VerticalAlignment="Center"
+                  Grid.Column="0" 
+                  Grid.ColumnSpan="8" 
+                  Grid.Row="1" 
+                  Grid.RowSpan="9"
+                  d:ItemsSource="{Binding products}"
+                  Width="1100" 
+                  Height="600" SelectionChanged="ProductLV_SelectionChanged_1">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="100" Columns="1"/>
@@ -139,23 +139,21 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="3" 
-            BorderBrush="#00CC76" 
-            Padding="1" Width="1059">
+                            BorderBrush="#00CC76" 
+                            Padding="1" Width="1059">
                         <StackPanel>
                             <StackPanel>
-
                                 <StackPanel Orientation="Horizontal">
-
                                     <StackPanel Orientation="Horizontal" 
-                                Width="190" 
-                                Margin="15">
+                                                            Width="190" 
+                                                            Margin="15">
                                         <Image Source="{Binding PhotoBinary}" 
-                               Width="190"/>
+                                               Width="190"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" 
-                                       Width="630" 
-                                       Margin="0 0 0 0">
+                                                   Width="630" 
+                                                   Margin="0 0 0 0">
                                         <StackPanel Orientation="Horizontal"
                                            Width="740" 
                                            Height="Auto" 
